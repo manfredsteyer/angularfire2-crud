@@ -24,16 +24,17 @@ export class <%= classify(name) %>Service {
 
     find(filter: <%= classify(name) %>Filter): Observable<<%= classify(name) %>[]> {
         return this.afs.collection(this.afsPath, ref => {
-            <%=
+<%
             let fields = getFilterFields(model);
             if (fields) {
-                %>ref<%=
-                for (let field of fields; let idx = index) {
-                    %>.where('<%=field.name%>', '==', 'filter.<%=field.name%>')<%=
+                for (let field of fields) {
+%>                    
+                    ref = ref.where('<%=field.name%>', '==', 'filter.<%=field.name%>');
+<%                    
                 }
-                %>;<%
+                
             }
-            %>
+%>
         });
     }
 
